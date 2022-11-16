@@ -1,35 +1,34 @@
 var API = "https://api.rss2json.com/v1/api.json?rss_url=";
-var sources = ["https://rthk.hk/rthk/news/rss/c_expressnews_clocal.xml",
-"https://rthk.hk/rthk/news/rss/c_expressnews_greaterchina.xml",
-"https://rthk.hk/rthk/news/rss/c_expressnews_cinternational.xml",
-"https://rthk.hk/rthk/news/rss/c_expressnews_cfinance.xml",
-"https://rthk.hk/rthk/news/rss/c_expressnews_csport.xml"]
 
-function formatted(feed,item){
+var APIkey = "uhvrh7g3aqgxmvoe3ehxnxl0r6rq8frx5wymysjn";
+
+var source = ["clocal","greaterchina","cinternational","cfinance","csport"]
+
+
+function formatted(feed,item, s){
     let block = "";
     let T = new Date(item.pubDate);
-    let t = [("0"+(T.getHours()+8)%24).slice(-2),("0"+T.getMinutes()).slice(-2)];
-    block += "<div class=\"item\"><button type=\"button\" class=\"collapsible\"><a href=\"" 
-    + item.link + "\" target=\"_blank\"><h1>[" + t[0]  +":"+ t[1] + "/"
-    + feed.title.replace('rthk.hk - 即時新聞: ','') + "]</a> " + item.title
-    + "</h1></button><div class=\"content\"><p>" + item.description + "</p></div></div>";
+    let t = [`0${(T.getHours()+8)%24}`.slice(-2),`0${T.getMinutes()}`.slice(-2)];
+    block += `<div class="item ${s}"><button type="button" class="collapsible ">
+    <a href="${item.link}" target="_blank"><div class="summary">[${t[0]}:${t[1]}]
+    </a>${item.title}</div><div class="category">${feed.title.replace('rthk.hk - 即時新聞: ','')}</div></button><div class="content"><p>${item.description}</p></div></div>`;
     return {time:T, news:block};
 }
 
-newsSeq = [];
+var newsSeq = [];
 
-function addNews(data){
-    data.items.forEach(item => newsSeq.push(formatted(data.feed, item)));
+function addNews(data, s){
+    data.items.forEach(item => newsSeq.push(formatted(data.feed, item, s)));
 }
 
-sources.forEach(s => {
+source.forEach(s => {
     $.ajax({
         type: 'GET',
-        url: API + s,
+        url: API + `https://rthk.hk/rthk/news/rss/c_expressnews_${s}.xml&api_key=${APIkey}`,
         dataType: 'jsonp',
         success: function (data) { 
-            console.log(data);
-            addNews(data);
+            //console.log(data);
+            addNews(data, s);
         }
     });
 });

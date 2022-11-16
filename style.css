@@ -1,25 +1,35 @@
+body::-webkit-scrollbar {
+    display: none;
+}
+
 a {
     text-decoration: none;
     color: lightblue;
 }
 
-h1 {
-    font-size: 18px;
+.summary {
+    font-size: 20px;
+    font-weight: bold;
     margin: 6px;
 }
 
 .item {
-    border: 1px solid #000;
+    border: 2px solid;
+    border-radius: 4px;
     align-content: center;
     width:80%;
     min-width:500px;
+    max-width:800px;
     margin:10px auto;
-    padding:none;
     background: #eee;
+    display: block;
 }
 
+
 .collapsible {
-    background-color: #777;
+    display:inline-block;
+    background-color: #222;
+    opacity: 0.8;
     color: white;
     cursor: pointer;
     padding: 0 5px;
@@ -28,9 +38,39 @@ h1 {
     border: none;
     text-align: left;
 }
-  
+
+.item.clocal{
+    border-color: #717;
+    color: #717;
+    background-color: #ece;
+}
+
+.item.greaterchina{
+    border-color: #911;
+    color: #911;
+    background-color: #fcc;
+}
+
+.item.cinternational{
+    border-color: #117;
+    color: #117;
+    background-color: #ccf;
+}
+
+.item.cfinance{
+    border-color: #551;
+    color: #551;
+    background-color: #ffc;
+}
+
+.item.csports{
+    border-color: #161;
+    color: #161;
+    background-color: #dfd;
+}
+
 .active, .collapsible:hover {
-    background-color: #555;
+    opacity: 0.8;
 }
   
 .content {
@@ -40,4 +80,10 @@ h1 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+
+.category {
+    font-size: 10px;
+    float: right;
 }
