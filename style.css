@@ -1,28 +1,33 @@
+a {
+    text-decoration: none;
+    color: lightblue;
+    font-size: 24px;
+}
+
 h1 {
-    font-size: 28px;
-    margin-top: 0px;
+    font-size: 18px;
+    margin: 6px;
 }
 
 .item {
-    border: 2px solid #000;
-    border-radius: 5px;
+    border: 1px solid #000;
     align-content: center;
-    width:auto;
-    max-width:75%;
+    width:80%;
+    min-width:500px;
     margin:10px auto;
-    padding:10px;
+    padding:none;
+    background: #eee;
 }
 
 .collapsible {
     background-color: #777;
     color: white;
     cursor: pointer;
-    padding: 18px;
+    padding: 0 5px;
+    margin:none;
     width: 100%;
     border: none;
     text-align: left;
-    outline: none;
-    font-size: 15px;
 }
   
 .active, .collapsible:hover {
@@ -30,8 +35,10 @@ h1 {
 }
   
 .content {
-    padding: 0 18px;
-    display: none;
+    padding:0 15px;
     overflow: hidden;
     background-color: #f1f1f1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }

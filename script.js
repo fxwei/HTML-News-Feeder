@@ -9,16 +9,17 @@ function formatted(feed,item){
     let block = "";
     let T = new Date(item.pubDate);
     let t = [("0"+(T.getHours()+8)%24).slice(-2),("0"+T.getMinutes()).slice(-2)];
-    block += "<div class=\"item\"><a href=\"" + item.link + "\"><h1>[" + t[0]  +":"+ t[1] + "/" + feed.title.replace('rthk.hk - 即時新聞: ','') + "] " + item.title + "</h1></a>";
-    block += item.description + "</div>";
-    return [block, T];
+    block += "<div class=\"item\"><button type=\"button\" class=\"collapsible\"><a href=\"" 
+    + item.link + "\" target=\"_blank\"><h1>[" + t[0]  +":"+ t[1] + "/"
+    + feed.title.replace('rthk.hk - 即時新聞: ','') + "]</a> " + item.title
+    + "</h1></button><div class=\"content\"><p>" + item.description + "</p></div></div>";
+    return {time:T, news:block};
 }
 
+newsSeq = [];
+
 function addNews(data){
-    console.log(data);
-    newsSeq = [];
-    data.items.forEach(item => document.getElementById('content').insertAdjacentHTML('beforeend', formatted(data.feed, item)[0]));
-    return newsSeq;
+    data.items.forEach(item => newsSeq.push(formatted(data.feed, item)));
 }
 
 sources.forEach(s => {
@@ -32,18 +33,27 @@ sources.forEach(s => {
         }
     });
 });
-/*
-var coll = document.getElementsByClassName("collapsible");
-var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
+$( document ).ajaxStop(function() {
+  newsSeq.sort(function (a, b) {
+    return b.time-a.time;
   });
-}*/
+  for(let n of newsSeq){
+    document.getElementById('show').insertAdjacentHTML('beforeend', n.news);
+  }
+  
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  }
+})
