@@ -1,27 +1,88 @@
+body{
+    background: #f5f5ff;
+    align-content: center;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
 
+#filters{
+    text-align: center;
+}
+.filter{
+    display:inline-block;
+    border: 2px solid grey;
+    height: 40px;
+    width: 90px;
+    background-color: rgba(0,0,0,0.1);
+    color:grey;
+    border-radius: 4px;
+    margin:3px;
+    padding:none;
+    font-size:20px;
+    cursor: pointer;
+}
+
+.filter.selected {
+    font-weight: bold;
+}
+
+
 a {
     text-decoration: none;
     color: lightblue;
+    display: inline-block;
+    font-weight: bold;
+    padding-right:6px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .summary {
     font-size: 20px;
     font-weight: bold;
     margin: 6px;
+    display: inline-block;
+}
+
+#show {
+    align-content: center;
+    width:100%;
+    margin:auto;
+    min-width:500px;
+    max-width:800px;
+    display: none;
 }
 
 .item {
     border: 2px solid;
     border-radius: 4px;
-    align-content: center;
     width:100%;
-    min-width:500px;
-    max-width:800px;
     margin:10px auto;
     background: #eee;
+}
+
+
+.item.clocal {
+    display: block;
+}
+
+
+.item.greaterchina {
+    display: block;
+}
+
+
+.item.cinternational {
+    display: block;
+}
+
+
+.item.cfinance {
+    display: block;
+}
+
+.item.csport {
     display: block;
 }
 
@@ -32,38 +93,39 @@ a {
     opacity: 0.8;
     color: white;
     cursor: pointer;
-    padding: 0 5px;
+    padding: 0 2px;
     margin:none;
     width: 100%;
     border: none;
     text-align: left;
 }
 
-.item.clocal{
+
+.item.clocal, .filter.clocal.selected{
     border-color: #717;
     color: #717;
     background-color: #ece;
 }
 
-.item.greaterchina{
+.item.greaterchina, .filter.greaterchina.selected{
     border-color: #911;
     color: #911;
     background-color: #fcc;
 }
 
-.item.cinternational{
+.item.cinternational, .filter.cinternational.selected{
     border-color: #117;
     color: #117;
     background-color: #ccf;
 }
 
-.item.cfinance{
+.item.cfinance, .filter.cfinance.selected{
     border-color: #551;
     color: #551;
     background-color: #ffc;
 }
 
-.item.csports{
+.item.csport, .filter.csport.selected {
     border-color: #161;
     color: #161;
     background-color: #dfd;
@@ -77,9 +139,8 @@ a {
     padding:0 15px;
     overflow: hidden;
     background-color: #f1f1f1;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
+    height: 0;
+    transition: height 0.2s ease-out;
 }
 
 
